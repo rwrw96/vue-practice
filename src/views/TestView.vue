@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { ref, computed } from 'vue';
+    import { ref, computed, watch, watchEffect } from 'vue';
     
     const count = ref(0)
 
@@ -61,6 +61,18 @@
     const checkNames = ref(['dog', 'cat', 'lion']);
     const selected = ref(1);
     const number = ref(0);
+
+    const oldText = ref('');
+    const newText = ref('');
+    watch(text, (newValue, oldValue) => {
+        oldText.value = oldValue;
+        newText.value = newValue;
+    });
+
+    const fiveItemsNumber = ref(0);
+    watchEffect(() => {
+        fiveItemsNumber.value = number.value * 5;
+    });
 </script>
 
 <template>
@@ -90,8 +102,8 @@
                 <p v-else>この人は若いです</p>
                 <button @click="alertButton">アラートボタン</button>
                 <input type="text" @keyup.enter="alertButton" placeholder="Enterキーでアラート" v-model="text" />
-                <p class="input-text">{{ text }}</p>
-
+                <p class="input-text">{{ '先ほど入力された: ' + oldText }}</p>
+                <p class="input-text">{{ '新しく入力された: ' + newText }}</p>
                 <input type="checkbox" value="dog" v-model="checkNames" />
                 <label for="dog">dog</label>
                 <input type="checkbox" value="cat" v-model="checkNames" />
@@ -108,7 +120,7 @@
                 </select>
                 <p>選択された値: {{ selected }}</p>
                 <input type="number" v-model.number="number" />
-                <p>入力された数値: {{ number }}</p>
+                <p>入力された数値*5: {{ fiveItemsNumber }}</p>
             </div>
         </div>
     </header>
