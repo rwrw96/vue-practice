@@ -160,7 +160,7 @@
         <button @click="childCount++">親側の子供カウントボタン</button>
         <p>親側の子供カウント: {{ childCount }}</p>
     </header>
-    <Test :title=title  @message="handleMessage" @submit="handleSubmit" v-model:="childCount" />
+    <Test :title=title  @message="handleMessage" @submit="handleSubmit" v-model:="childCount" class="isChild" style="background-color: bisque;" />
     <p>{{ recieivedMessage }}</p>
     <slotTest>これはslotテストです</slotTest>
 </template>
