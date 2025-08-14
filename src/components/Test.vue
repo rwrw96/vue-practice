@@ -14,16 +14,31 @@
     defineProps({
         title: {
             type: String,
-            default: 'Test Component'
+            default: 'Child Component'
         }
     });
 
     // defineEmits
     // 子コンポーネントから親コンポーネントへイベントを送信するための定義
-    const emit = defineEmits(['message']);
+    const emit = defineEmits({
+        message: null,
+        submit: null, 
+    });
+    
     const sendMessage = () => {
         emit('message', 'Hello from Test Component!');
     };
+
+    const email = ref('');
+    const password = ref('');
+    const sendSubmit = () => {
+        // バリデーションチェック
+        if (!email.value || !password.value) {
+            alert('Email and password are required!');
+            return;
+        }
+        emit('submit', {email: email.value, password: password.value});
+    }
 </script>
 
 <template>
@@ -33,6 +48,11 @@
             {{ description }}
         </p>
         <button @click="sendMessage">メッセージを送信</button>
+        <form @submit.prevent="sendSubmit" class="email-password">
+            email: <input type="text" v-model="email">
+            password: <input type="password" v-model="password">
+            <button type="submit">登録</button>
+        </form> 
     </div>
 </template>
 
@@ -48,5 +68,11 @@
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
+}
+.email-password {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px;
 }
 </style>

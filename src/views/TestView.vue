@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import { ref, computed, watch, watchEffect, useTemplateRef, onMounted } from 'vue';
     import Test from '../components/Test.vue';
+    import slotTest from '../components/slotTest.vue';
     
     const count = ref(0)
 
@@ -96,6 +97,11 @@
     const handleMessage = (message) => {
         recieivedMessage.value = message;
     };
+    const title = ref('parent title');
+
+    const handleSubmit = ({email, password}) => {
+        alert(`登録されました!\nEmail: ${email}\nPassword: ${password}`)
+    };
 </script>
 
 <template>
@@ -150,7 +156,7 @@
             </div>
         </div>
     </header>
-    <Test title="parent title" @message="handleMessage" />
+    <Test :title=title  @message="handleMessage" @submit="handleSubmit" />
     <p>{{ recieivedMessage }}</p>
     <slotTest>これはslotテストです</slotTest>
 </template>
