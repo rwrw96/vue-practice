@@ -102,6 +102,8 @@
     const handleSubmit = ({email, password}) => {
         alert(`登録されました!\nEmail: ${email}\nPassword: ${password}`)
     };
+
+    const childCount = ref(0);
 </script>
 
 <template>
@@ -155,8 +157,10 @@
                 <button @click="toBeYelllow">黄色にするボタン</button>
             </div>
         </div>
+        <button @click="childCount++">親側の子供カウントボタン</button>
+        <p>親側の子供カウント: {{ childCount }}</p>
     </header>
-    <Test :title=title  @message="handleMessage" @submit="handleSubmit" />
+    <Test :title=title  @message="handleMessage" @submit="handleSubmit" v-model:="childCount" />
     <p>{{ recieivedMessage }}</p>
     <slotTest>これはslotテストです</slotTest>
 </template>
