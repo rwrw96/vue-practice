@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { ref, computed, watch, watchEffect } from 'vue';
+    import { ref, computed, watch, watchEffect, useTemplateRef, onMounted } from 'vue';
     
     const count = ref(0)
 
@@ -75,6 +75,21 @@
     watchEffect(() => {
         fiveItemsNumber.value = number.value * 5;
     });
+
+    // useTemplateRef
+    // DOM要素にアクセスする
+    const numberInput = useTemplateRef('number-input');
+    const isYelllow = ref(false);
+    function toBeYelllow() {
+        if (numberInput.value) {
+            isYelllow.value = !isYelllow.value;
+            if (isYelllow.value) {
+                numberInput.value.style.backgroundColor = 'yellow';
+            } else {
+                numberInput.value.style.backgroundColor = '';
+            }
+        }
+    }
 </script>
 
 <template>
@@ -123,6 +138,9 @@
                 <p>選択された値: {{ selected }}</p>
                 <input type="number" v-model.number="number" />
                 <p>入力された数値*5: {{ fiveItemsNumber }}</p>
+
+                <input type="number" ref="number-input" />
+                <button @click="toBeYelllow">黄色にするボタン</button>
             </div>
         </div>
     </header>
