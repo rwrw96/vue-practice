@@ -69,6 +69,8 @@
         newText.value = newValue;
     });
 
+    // watchEffect
+    // 明示的に監視対象を書かずに、リアクティブな値を監視する
     const fiveItemsNumber = ref(0);
     watchEffect(() => {
         fiveItemsNumber.value = number.value * 5;
