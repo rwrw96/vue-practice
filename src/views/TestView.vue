@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import { ref, computed, watch, watchEffect, useTemplateRef, onMounted } from 'vue';
+    import Test from '../components/Test.vue';
     
     const count = ref(0)
 
@@ -90,6 +91,11 @@
             }
         }
     }
+
+    const recieivedMessage = ref('');
+    const handleMessage = (message) => {
+        recieivedMessage.value = message;
+    };
 </script>
 
 <template>
@@ -144,6 +150,9 @@
             </div>
         </div>
     </header>
+    <Test title="parent title" @message="handleMessage" />
+    <p>{{ recieivedMessage }}</p>
+    <slotTest>これはslotテストです</slotTest>
 </template>
 
 <style scoped>

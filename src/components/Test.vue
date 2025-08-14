@@ -8,14 +8,31 @@
         class: 'p-content',
         style: 'background-color:green'
     };
+
+    // defineProps
+    // 親コンポーネントから受け取るpropsの定義
+    defineProps({
+        title: {
+            type: String,
+            default: 'Test Component'
+        }
+    });
+
+    // defineEmits
+    // 子コンポーネントから親コンポーネントへイベントを送信するための定義
+    const emit = defineEmits(['message']);
+    const sendMessage = () => {
+        emit('message', 'Hello from Test Component!');
+    };
 </script>
 
 <template>
     <div class="wrapper">
-        <h1 :class="heading">Test Component</h1>
+        <h1 :class="heading">{{ title }}</h1>
         <p v-bind="objectOfAttrs">
             {{ description }}
         </p>
+        <button @click="sendMessage">メッセージを送信</button>
     </div>
 </template>
 
