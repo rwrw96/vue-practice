@@ -39,6 +39,10 @@
         }
         emit('submit', {email: email.value, password: password.value});
     }
+
+    // defineModel
+    // 親コンポーネントからの双方向データバインディング
+    const childCount = defineModel();
 </script>
 
 <template>
@@ -53,6 +57,7 @@
             password: <input type="password" v-model="password">
             <button type="submit">登録</button>
         </form> 
+        <p>子側の子供カウント:{{ childCount }}</p>
     </div>
 </template>
 
