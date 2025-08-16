@@ -162,7 +162,15 @@
     </header>
     <Test :title=title  @message="handleMessage" @submit="handleSubmit" v-model:="childCount" class="isChild" style="background-color: bisque;" />
     <p>{{ recieivedMessage }}</p>
-    <slotTest>これはslotテストです</slotTest>
+    <slotTest>
+        <template #first>
+            <h1>一つ目: これはslotテストです</h1>
+        </template>
+        <template #secound>
+            <h2>二つ目: これはslotテストです</h2>
+        </template>
+        <template #third></template>
+    </slotTest>
 </template>
 
 <style scoped>
