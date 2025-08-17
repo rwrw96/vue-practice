@@ -1,5 +1,5 @@
 <script setup>
-    import { ref } from 'vue';
+    import { ref, inject } from 'vue';
     const description = ref("これはテストコンポーネントです。Vueのコンポーネントの基本的な構造を示しています。");
     const heading = ref("heading");
 
@@ -43,6 +43,10 @@
     // defineModel
     // 親コンポーネントからの双方向データバインディング
     const childCount = defineModel();
+
+    // inject
+    // 親コンポーネントから提供されたデータを受け取る
+    const injectMessage = inject('provideMessage', 'デフォルトメッセージ');
 </script>
 
 <template>
@@ -58,6 +62,7 @@
             <button type="submit">登録</button>
         </form> 
         <p>子側の子供カウント:{{ childCount }}</p>
+        <p>{{ injectMessage }}</p>
     </div>
 </template>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { ref, computed, watch, watchEffect, useTemplateRef, onMounted } from 'vue';
+    import { ref, computed, watch, watchEffect, useTemplateRef, onMounted, provide } from 'vue';
     import Test from '../components/Test.vue';
     import slotTest from '../components/slotTest.vue';
     
@@ -104,6 +104,11 @@
     };
 
     const childCount = ref(0);
+
+    // provides
+    // 親コンポーネントから子コンポーネントへデータを提供する（深い階層を許容）
+    const provideMessage = ref('親からのメッセージ');
+    provide('provideMessage', provideMessage.value);
 </script>
 
 <template>
