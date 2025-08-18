@@ -15,7 +15,15 @@
         title: {
             type: String,
             default: 'Child Component'
-        }
+        },
+        x: {
+            type: Number,
+            default: 0
+        },
+        y: {
+            type: Number,
+            default: 0
+        }  
     });
 
     // defineEmits
@@ -63,6 +71,7 @@
         </form> 
         <p>子側の子供カウント:{{ childCount }}</p>
         <p>{{ injectMessage }}</p>
+        <p>マウスの位置: {{ x }}, {{ y }}</p>
     </div>
 </template>
 
