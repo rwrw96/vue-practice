@@ -1,7 +1,8 @@
 <script setup lang="ts">
-    import { ref, computed, watch, watchEffect, useTemplateRef, onMounted, provide } from 'vue';
+    import { ref, computed, watch, watchEffect, useTemplateRef, onMounted, onUnmounted, provide } from 'vue';
     import Test from '../components/Test.vue';
     import slotTest from '../components/slotTest.vue';
+    import { useMouse } from '../composables/useMouse';
     
     const count = ref(0)
 
@@ -109,6 +110,26 @@
     // 親コンポーネントから子コンポーネントへデータを提供する（深い階層を許容）
     const provideMessage = ref('親からのメッセージ');
     provide('provideMessage', provideMessage.value);
+
+    const { x, y } = useMouse();
+</script>
+
+<script lang="ts">
+    // exportすることで、他のコンポーネントからも利用可能にする
+    export function useMouse() {
+        const x = ref(0)
+        const y = ref(0)
+        
+        function update(event) {
+            x.value = event.pageX
+            y.value = event.pageY
+        }
+        
+        onMounted(() => window.addEventListener('mousemove', update))
+        onUnmounted(() => window.removeEventListener('mousemove', update))
+
+        return { x, y };
+    }
 </script>
 
 <template>
@@ -165,7 +186,7 @@
         <button @click="childCount++">親側の子供カウントボタン</button>
         <p>親側の子供カウント: {{ childCount }}</p>
     </header>
-    <Test :title=title  @message="handleMessage" @submit="handleSubmit" v-model:="childCount" class="isChild" style="background-color: bisque;" />
+    <Test :title=title  :x="x" :y="y" @message="handleMessage" @submit="handleSubmit" v-model:="childCount" class="isChild" style="background-color: bisque;" />
     <p>{{ recieivedMessage }}</p>
     <slotTest>
         <template #first>
@@ -176,6 +197,8 @@
         </template>
         <template #third></template>
     </slotTest>
+
+    <p>マウスの位置: {{ x }}, {{ y }}</p>
 </template>
 
 <style scoped>
