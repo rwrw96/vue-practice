@@ -112,6 +112,13 @@
     provide('provideMessage', provideMessage.value);
 
     const { x, y } = useMouse();
+
+    // カスタムディレクティブ
+    const vFocus = {
+        mounted(el) {
+            el.focus();
+        }
+    }
 </script>
 
 <script lang="ts">
@@ -182,6 +189,8 @@
                 <input type="number" ref="number-input" />
                 <button @click="toBeYelllow">黄色にするボタン</button>
             </div>
+            <p>マウスの位置: {{ x }}, {{ y }}</p>
+            <input type="text" v-focus placeholder="v-focus"/>
         </div>
         <button @click="childCount++">親側の子供カウントボタン</button>
         <p>親側の子供カウント: {{ childCount }}</p>
@@ -197,8 +206,6 @@
         </template>
         <template #third></template>
     </slotTest>
-
-    <p>マウスの位置: {{ x }}, {{ y }}</p>
 </template>
 
 <style scoped>
