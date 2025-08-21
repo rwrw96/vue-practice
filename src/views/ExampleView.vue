@@ -5,12 +5,14 @@ import AttributeBindings from '../components/AttributeBindings.vue';
 import TemperatureConverter from '../components/TemperatureConverter.vue';
 import SimpleComponent from '../components/SimpleComponent.vue';
 import FormBindings from '../components/FormBindings.vue';
+import CRUD from '../components/CRUD.vue';
 
 const isHideHandingUserInput = ref(false)
 const isAttributeBindings = ref(false)
 const isTemperatureConverter = ref(false)
 const isSimpleComponent = ref(false)
 const isFormBindings = ref(false)
+const isCRUD = ref(false)
 
 function toggleHideHandingUserInput() {
     isHideHandingUserInput.value = !isHideHandingUserInput.value
@@ -27,6 +29,9 @@ function toggleSimpleComponent() {
 function toggleFormBindings() {
     isFormBindings.value = !isFormBindings.value
 }
+function toggleCRUD() {
+    isCRUD.value = !isCRUD.value
+}
 </script>
 
 <template>
@@ -35,12 +40,14 @@ function toggleFormBindings() {
     <TemperatureConverter v-if="isTemperatureConverter"/>
     <SimpleComponent v-if="isSimpleComponent"/>
     <FormBindings v-if="isFormBindings"/>
+    <CRUD v-if="isCRUD"/>
     <div class="hide-button-wrapper">
         <button class="" @click="toggleHideHandingUserInput">HandingUserInput</button>
         <button class="" @click="toggleAttributeBindings">Attribute Bindings</button>
         <button class="" @click="toggleTemperatureConverter">Temperature Converter</button>
         <button class="" @click="toggleSimpleComponent">Simple Component</button>
         <button class="" @click="toggleFormBindings">Form Bindings</button>
+        <button class="" @click="toggleCRUD">CRUD</button>
     </div>
 </template>
 
