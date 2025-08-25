@@ -1,5 +1,8 @@
 <script setup>
     import { ref, inject } from 'vue';
+    import { useUserStore } from '@/stores/user'
+
+    const user = useUserStore()
     const description = ref("これはテストコンポーネントです。Vueのコンポーネントの基本的な構造を示しています。");
     const heading = ref("heading");
 
@@ -73,6 +76,7 @@
         <p>{{ injectMessage }}</p>
         <p>マウスの位置: {{ x }}, {{ y }}</p>
     </div>
+    {{ user }}
 </template>
 
 <style scoped>
